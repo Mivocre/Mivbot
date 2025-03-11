@@ -2,6 +2,7 @@ import discord
 import os
 
 botToken = os.environ.get("DISCORD_BOT_TOKEN")
+linkAllowed = ["pics-links"]
 
 class Client(discord.Client):
     async def on_ready(self):
@@ -17,12 +18,13 @@ class Client(discord.Client):
             # print(message.attachments)
             # this line returns a list of embedded links, if no links present the list will be empty
             # print(message.embeds)
-        if len(message.embeds) > 0:
-            await message.delete()
-            await message.channel.send("stop that, no links")
-        if len(message.attachments) > 0:
-            await message.delete()
-            await message.channel.send("stop that, no attachments")
+        if message.channel.name not in linkAllowed:
+            if len(message.embeds) > 0:
+                await message.delete()
+                await message.channel.send("stop that, no links")
+            if len(message.attachments) > 0:
+                await message.delete()
+                await message.channel.send("stop that, no attachments")
     async def on_reaction_add(self, reaction, user):
         await reaction.message.channel.send("You Reacted")
 
