@@ -1,4 +1,6 @@
 import discord
+from discord.ext import commands
+from discord import app_commands
 import os
 
 botToken = os.environ.get("DISCORD_BOT_TOKEN")
@@ -18,6 +20,7 @@ class Client(discord.Client):
             # print(message.attachments)
             # this line returns a list of embedded links, if no links present the list will be empty
             # print(message.embeds)
+        # deletes messages containing links or attachments from general, but not pics-links
         if message.channel.name not in linkAllowed:
             if len(message.embeds) > 0:
                 await message.delete()
