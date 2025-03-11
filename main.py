@@ -17,7 +17,14 @@ class Client(discord.Client):
             # print(message.attachments)
             # this line returns a list of embedded links, if no links present the list will be empty
             # print(message.embeds)
-    
+        if len(message.embeds) > 0:
+            await message.delete()
+            await message.channel.send("stop that, no links")
+        if len(message.attachments) > 0:
+            await message.delete()
+            await message.channel.send("stop that, no attachments")
+    async def on_reaction_add(self, reaction, user):
+        await reaction.message.channel.send("You Reacted")
 
 intents = discord.Intents.default()
 intents.message_content = True
