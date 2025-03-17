@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import os
-
+bannedWords = ["gamer", "gacha"]
 botToken = os.environ.get("DISCORD_BOT_TOKEN")
 linkAllowed = ["pics-links"]
 
@@ -14,6 +14,11 @@ class Client(discord.Client):
         #stops bot from replying to itself
         if message.author == self.user:
             return
+        # deletes messages containing banned words then names and shames message author for using banned word
+        if any(word in message.content for word in bannedWords):
+            await message.delete()
+            await message.channel.send(f'bad {message.author.mention}, no banned words')
+
         if message.content.startswith("hello"):
             await message.channel.send(f'Hi There {message.author}')
             # this line returns a list of attachments, if no attachments present the list will be empty
