@@ -4,7 +4,7 @@ from discord import app_commands
 import os
 bannedWords = ["gamer", "gacha"]
 botToken = os.environ.get("DISCORD_BOT_TOKEN")
-linkAllowed = ["pics-links"]
+linkAllowed = ["music", "slay-the-bot", "pics-links", "timeiscommunication", "valorant-money-maker"]
 
 class Client(discord.Client):
     async def on_ready(self):
